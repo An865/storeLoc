@@ -1,0 +1,8 @@
+## MAC OS Files
+.DS_Store
+
+##Environment Variables and Credentials
+keys.json
+
+##Dependencies
+node_modules/
