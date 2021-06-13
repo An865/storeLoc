@@ -1,7 +1,7 @@
-/* Packages, Libraries, etc. */
+let server = require('./server.js')
 const {google} = require('googleapis');
 const keys = require('./keys.json');
-let server = require('./server.js')
+
 
 
 
@@ -38,7 +38,7 @@ async function gsrun(client){
    }
 
    let data = await gsapi.spreadsheets.values.get(options)
-
-   server(data.data.values);
-   console.log(data.data.values);
+   let information = data.data.values;
+   //server(information);
+  console.log(information);
 }

@@ -6,7 +6,7 @@ const http = require('http');
 
 //fs.readFile(filename, encoding, callback(error, data)) where data is contents of the file
 module.exports = server = (data) => {
-fs.readFile('./index.html', function (err, html) {
+fs.appendFile('./index.html', data, function (err, html) {
     if (err) {
         throw err; 
     }       
