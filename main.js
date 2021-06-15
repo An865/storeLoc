@@ -1,4 +1,5 @@
-let server = require('./server.js')
+let server = require('./server.js');
+let formatJSON = require('./formatJson');
 const {google} = require('googleapis');
 const keys = require('./keys.json');
 
@@ -34,11 +35,11 @@ async function gsrun(client){
    //parameters for information we will request from the api
    const options = {
       spreadsheetId: keys.spreadsheetId,
-      range: 'locationData!A1:W137'
+      range: 'locationData!A1:W1'
    }
 
    let data = await gsapi.spreadsheets.values.get(options)
    let information = data.data.values;
-   //server(information);
-  console.log(information);
+
+   formatJSON( information);
 }
