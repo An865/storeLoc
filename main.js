@@ -15,7 +15,6 @@ client.authorize(function (err, tokens) {
         console.log(err);
         return;
     } else {
-        console.log('connected');
         gsrun(client);
     }
 });
@@ -27,7 +26,7 @@ async function gsrun(client) {
     //parameters for information we will request from the api
     const options = {
         spreadsheetId: keys.spreadsheetId,
-        range: 'locationData!A1:W2',
+        range: 'locationData',
     };
 
     let sheetValues = await gsapi.spreadsheets.values.get(options);
@@ -44,21 +43,7 @@ function getStoreData(storeInformation) {
         store.properties.id = i;
     });
 
+    server();
     //develop store layer for map overlap
-    makeMapOverlay(stores);
-}
-
-function makeMapOverlay(stores) {
-    map.on('load', function (e) {
-        /* Add the data to your map as a layer */
-        map.addLayer({
-            id: 'locations',
-            type: 'circle',
-            /* Add a GeoJSON source containing place coordinates and information. */
-            source: {
-                type: 'geojson',
-                data: stores,
-            },
-        });
-    });
+    //makeMapOverlay(stores);
 }
