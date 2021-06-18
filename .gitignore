@@ -7,3 +7,8 @@ keys.json
 
 ##Dependencies
 node_modules/
+
+##Local Dev Environment
+.vscode/
+https/
+.prettierrc
