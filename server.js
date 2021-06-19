@@ -1,20 +1,16 @@
 /* Packages, Libraries, etc. */
 const express = require('express');
 const app = express();
-const fs = require('fs')
-const http = require('http');
+const path = require('path');
 
-//fs.readFile(filename, encoding, callback(error, data)) where data is contents of the file
 module.exports = server = (data) => {
-fs.appendFile('./index.html', data, function (err, html) {
-    if (err) {
-        throw err; 
-    }       
-    http.createServer((request, response) => {  
-        response.writeHeader(200, {"Content-Type": "text/html"});  
-        response.write(html);  
-        response.end();  
-    }).listen(8080);
+    const port = process.env.PORT || 8080;
+
+    // sendFile will go here
+    app.get('/', function (req, res) {
+        res.sendFile(path.join(__dirname, '/index.html'));
     });
-console.log('My first Node test server is running on Port 8080.');
-}
+
+    app.listen(port);
+    console.log('Server started at http://localhost:' + port);
+};
