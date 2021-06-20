@@ -16,7 +16,7 @@ var map = new mapboxgl.Map({
 
 axios.get('http://localhost:8080').then((response) => {
     console.log(response.data);
-    let stores = response.data;
+    let stores = regitsponse.data;
     map.on('load', function (e) {
         /* Add the data to your map as a layer */
         map.addLayer({
