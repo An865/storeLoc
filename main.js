@@ -1,8 +1,7 @@
 let server = require('./server.js');
-let formatJSON = require('./formatJson');
+let formatJson = require('./formatJson');
 const { google } = require('googleapis');
 const keys = require('./keys.json');
-let mapJs = require('./map');
 
 /* GET DATA FROM GOOGLE SHEET */
 //create JSON web token
@@ -44,6 +43,5 @@ function getStoreData(storeInformation) {
         store.properties.id = i;
     });
 
-    //  mapJs(stores);
-    server();
+    server(storeInformation);
 }

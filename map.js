@@ -1,18 +1,22 @@
-const keys = require('./keys.json');
+import axios from 'axios';
+import { accessToken } from './keys.json';
 
-module.exports = mapJs = (stores) => {
-    //  mapboxgl.accessToken = keys.accessToken;
-    mapboxgl.accessToken =
-        pk.eyJ1IjoiYXNwaXJlOCIsImEiOiJja291Y3Q1eTkwaDJ0MnBrN3h3a2l0MGxrIn0.zQrd_Tphf5M3Juy_LWlHkQ;
+//  mapboxgl.accessToken = keys.accessToken;
+mapboxgl.accessToken = accessToken;
 
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/light-v10',
-        center: [-77.034084, 38.909671],
-        zoom: 13,
-        scrollZoom: false,
-    });
+//note center is in longitude (range -180 to 180), latitude (range -90 to 90)
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v10',
+    center: [-111.8438395, 33.741123],
+    zoom: 13,
+    scrollZoom: false,
+});
+//
 
+axios.get('http://localhost:8080').then((response) => {
+    console.log(response.data);
+    let stores = response.data;
     map.on('load', function (e) {
         /* Add the data to your map as a layer */
         map.addLayer({
@@ -25,4 +29,4 @@ module.exports = mapJs = (stores) => {
             },
         });
     });
-};
+});
