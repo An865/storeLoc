@@ -1,7 +1,7 @@
 let server = require('./server.js');
 let formatJson = require('./formatJson');
 const { google } = require('googleapis');
-const keys = require('./keys.json');
+const keys = require('../keys.json');
 
 /* GET DATA FROM GOOGLE SHEET */
 //create JSON web token
@@ -34,14 +34,16 @@ async function gsrun(client) {
     getStoreData(storeInformation);
 }
 
+/* FORMAT GOOGLE SPREADSHEET DATA TO JSON */
 function getStoreData(storeInformation) {
     //get store data from formatJson module
     let stores = formatJson(storeInformation);
 
     // Assign a unique ID to each store
-    stores.features.forEach(function (store, i) {
-        store.properties.id = i;
-    });
-
+    // stores.features.forEach(function (store, i) {
+    //     store.properties.id = i;
+    // });
+    
+    //start server
     server(storeInformation);
 }

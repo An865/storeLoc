@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { accessToken } from './keys.json';
+import { accessToken } from '../keys.json';
 
 //  mapboxgl.accessToken = keys.accessToken;
 mapboxgl.accessToken = accessToken;
