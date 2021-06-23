@@ -39,11 +39,11 @@ function getStoreData(storeInformation) {
     //get store data from formatJson module
     let stores = formatJson(storeInformation);
 
-    // Assign a unique ID to each store
-    // stores.features.forEach(function (store, i) {
-    //     store.properties.id = i;
-    // });
-    
+    // Assign a unique ID to each individual store
+    stores.forEach(function (store, i) {
+        store.id = i;
+    });
+
     //start server
-    server(storeInformation);
+    server(stores);
 }

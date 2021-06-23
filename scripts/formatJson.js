@@ -18,5 +18,5 @@ module.exports = formatJson = (storeInformation) => {
         }
         stores.push(indStore);
     });
-    console.log(stores[1]);
+    return stores;
 };
