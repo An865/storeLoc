@@ -44,6 +44,6 @@ function getStoreData(storeInformation) {
         store.id = i;
     });
 
-    //start server
+    //start server and send stores data
     server(stores);
 }
