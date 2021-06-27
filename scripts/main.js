@@ -44,6 +44,7 @@ function getStoreData(storeInformation) {
         store.id = i;
     });
 
+    /* SEND GOOGLESPREADSHEET DATA TO SEVER SO IT CAN BE ACCESSED BY FRONT END */
     //start server and send stores data
     server(stores);
 }

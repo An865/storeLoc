@@ -1,22 +1,22 @@
 /* Packages, Libraries, etc. */
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-//const path = require('path');
-
-//bodyparser to parse json in req and res
-app.use(bodyParser.json());
+const htmlRoutes = require('../routes/htmlrouters');
+const apiRoutes = require('../routes/apirouters');
 
 module.exports = server = (data) => {
-    const port = process.env.PORT || 8080;
+    // for parsing application/json
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    //use the following code to serve images, CSS files, and JavaScript files in a directory named public
+    app.use(express.static('public'));
 
-    // sendFile will go here
-    app.get('/', function (req, res) {
-        // res.sendFile(path.join(__dirname, '/index.html'));
-        //res.json(data);
-        res.status('200').json(data);
-    });
+    app.use('/api', apiRoutes);
+    app.use('/', htmlRoutes);
 
-    app.listen(port);
-    console.log('Server started at http://localhost:' + port);
+    const PORT = process.env.PORT || 8080;
+
+    app.listen(PORT, () =>
+        console.log(`Listening on PORT: http://localhost:${PORT}`)
+    );
 };
