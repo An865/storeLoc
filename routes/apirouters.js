@@ -4,7 +4,7 @@ const router = require('express').Router();
 // GET "/api/stores" responds with all notes from the database
 router.get('/stores', (req, res) => {
     store
-        .getNotes()
+        //.getNotes()
         .then((stores) => {
             return res(stores);
         })
