@@ -1,10 +1,10 @@
-/* Packages, Libraries, etc. */
-const express = require('express');
-const app = express();
-const htmlRoutes = require('../routes/htmlrouters');
-const apiRoutes = require('../routes/apirouters');
-
 module.exports = server = (data) => {
+    /* Packages, Libraries, etc. */
+    const express = require('express');
+    const app = express();
+    const htmlRoutes = require('../routes/htmlrouters');
+    const apiRoutes = require('../routes/apirouters')(data);
+
     // for parsing application/json
     app.use(express.json());
     // for parsing url encoded data
@@ -13,7 +13,7 @@ module.exports = server = (data) => {
     app.use(express.static('public'));
 
     app.use('/', htmlRoutes);
-    app.use('/api', apiRoutes(data));
+    app.use('/api', apiRoutes);
 
     const PORT = process.env.PORT || 8080;
 

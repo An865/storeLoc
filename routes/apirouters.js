@@ -1,14 +1,11 @@
 const path = require('path');
 const router = require('express').Router();
 
-// GET "/api/stores" responds with all notes from the database
-router.get('/stores', (req, res) => {
-    store
-        //.getNotes()
-        .then((stores) => {
-            return res(stores);
-        })
-        .catch((err) => res.status(500).json(err));
-});
+module.exports = function (data) {
+    // GET "/api/stores" responds with all data from the spreadsheet
+    router.get('/stores', (req, res) => {
+        res.send(data);
+    });
 
-module.exports = router;
+    return router;
+};
