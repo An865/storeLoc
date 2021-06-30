@@ -4,7 +4,7 @@ const router = require('express').Router();
 module.exports = function (data) {
     // GET "/api/stores" responds with all data from the spreadsheet
     router.get('/stores', (req, res) => {
-        res.send(data);
+        res.json(data);
     });
 
     return router;
