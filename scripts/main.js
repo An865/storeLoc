@@ -1,7 +1,7 @@
 let server = require('./server.js');
 let formatJson = require('./formatJson');
 const { google } = require('googleapis');
-const keys = require('../keys.json');
+const keys = require('../storeloc-keys.json');
 
 /* GET DATA FROM GOOGLE SHEET */
 //create JSON web token

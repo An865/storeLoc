@@ -3,7 +3,7 @@
 
 ##Environment Variables and Credentials
 keys.json
-
+storeloc-keys.json
 
 ##Dependencies
 node_modules/
@@ -12,3 +12,7 @@ node_modules/
 .vscode/
 https/
 .prettierrc
+
+##bundler ignores
+dist/
+.cache/

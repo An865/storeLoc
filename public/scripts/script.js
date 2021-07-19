@@ -1,8 +1,30 @@
-axios.get('http://localhost:8080/api/stores').then((res) => {
-    formatgeoJson(res.data);
-});
+// get call to route for Mapbox accesstoken, store that token in variable
+//if outside app makes call then the call should have access token
 
-function formatgeoJson(data) {
+async function getData() {
+    //this is a call to api from local (if statement if local do this - if outside url it must have JWT token)
+    const data = await axios
+        .get('http://localhost:8080/api/stores')
+        .then((response) => response.data);
+
+    return data;
+}
+
+mapboxgl.accessToken =
+    'pk.eyJ1IjoiYXNwaXJlOCIsImEiOiJja291Y3Q1eTkwaDJ0MnBrN3h3a2l0MGxrIn0.zQrd_Tphf5M3Juy_LWlHkQ';
+
+let map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v10',
+    center: [-111.84414, 33.74143],
+    zoom: 4,
+    scrollZoom: false,
+});
+//33.741435934235255, -111.84414824699708
+
+async function formatgeoJson() {
+    let data = await getData();
+
     let stores = {
         type: 'FeatureCollection',
         features: [],
@@ -13,7 +35,7 @@ function formatgeoJson(data) {
             type: 'Feature',
             geometry: {
                 type: 'Point',
-                coordinates: [store.lat, store.lng],
+                coordinates: [store.lng, store.lat],
             },
             properties: {
                 address: store.name,
@@ -22,41 +44,25 @@ function formatgeoJson(data) {
         stores.features.push(featureProps);
     });
     //stores has all of the store data in geojson format
-    console.log(stores);
+    return stores;
 }
 
-mapboxgl.accessToken =
-    'pk.eyJ1IjoiYXNwaXJlOCIsImEiOiJja291Y3Q1eTkwaDJ0MnBrN3h3a2l0MGxrIn0.zQrd_Tphf5M3Juy_LWlHkQ';
+async function renderStores() {
+    let stores = await formatgeoJson();
+    // console.log(stores);
 
-let options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-};
-
-function success(position) {
-    setupMap();
-    setupMap([position.coords.longitude, position.coords.latitude]);
-}
-
-function error(err) {
-    window.alert(`ERROR(${err.code}): ${err.message}`);
-}
-
-function setupMap(center) {
-    const map = new mapboxgl.Map({
-        container: 'map', //container ID
-        style: 'mapbox://styles/mapbox/streets-v11', //style URL
-        center: center, //starting position
-        zoom: 14, //starting zoom
+    map.on('load', async function (e) {
+        /* Add the data to your map as a layer */
+        map.addLayer({
+            id: 'locations',
+            type: 'circle',
+            /* Add a GeoJSON source containing place coordinates and information. */
+            source: {
+                type: 'geojson',
+                data: stores,
+            },
+        });
     });
-
-    var directions = new MapboxDirections({
-        accessToken: mapboxgl.accessToken,
-    });
-
-    //add controls
-    map.addControl(directions, 'top-left');
-    const nav = new mapboxgl.NavigationControl();
-    map.addControl(nav);
 }
-navigator.geolocation.getCurrentPosition(success, error, options);
+
+renderStores();
