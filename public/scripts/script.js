@@ -10,8 +10,7 @@ async function getData() {
     return data;
 }
 
-mapboxgl.accessToken =
-    'pk.eyJ1IjoiYXNwaXJlOCIsImEiOiJja291Y3Q1eTkwaDJ0MnBrN3h3a2l0MGxrIn0.zQrd_Tphf5M3Juy_LWlHkQ';
+mapboxgl.accessToken = config.PROD.ACCESS_TOKEN;
 
 let map = new mapboxgl.Map({
     container: 'map',

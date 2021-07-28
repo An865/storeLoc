@@ -4,6 +4,7 @@
 ##Environment Variables and Credentials
 keys.json
 storeloc-keys.json
+public/scripts/config.js
 
 ##Dependencies
 node_modules/
